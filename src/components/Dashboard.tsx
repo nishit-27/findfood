@@ -116,7 +116,7 @@ const Dashboard = () => {
           setTimeout(() => setNotification(null), 5000);
           await fetchCalorieData();
           setQuantity(1); // Reset quantity to default value
-          setImage(null); // Clear the image
+          setImage(null); // Clear the image 
         } else {
           console.error('Failed to add calories');
           setNotification('Oops! We couldn\'t add your food. Please try again.');
