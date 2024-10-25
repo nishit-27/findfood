@@ -1,0 +1,13 @@
+.react-datepicker__day--highlighted {
+  background-color: #e0e7ff !important;
+  color: #4f46e5 !important;
+}
+
+.react-datepicker__day--highlighted:hover {
+  background-color: #c7d2fe !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #4f46e5 !important;
+  color: white !important;
+}
