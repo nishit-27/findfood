@@ -1,50 +1,71 @@
-# Dish Identifier and Nutrition App
+## Quiz Application
 
-This project is a web application that identifies dishes from images and provides nutritional information using the Google Gemini AI API.
+### Description
 
-## Setup
+This project is a quiz application built using JavaScript, CSS, and HTML. It features a variety of quizzes on various topics, user authentication, and a leaderboard to track progress.
+
+### Features
+
+* Wide range of quizzes covering various subjects
+* User registration and login
+* Leaderboard to track user performance
+* Responsive design for optimal viewing on all devices
+* Timed quizzes to encourage quick thinking
+* Scoring system to provide feedback on user performance
+
+### Technologies Used
+
+* **Frontend:**
+    * JavaScript (ES6+)
+    * HTML5
+    * CSS3
+* **Backend:**
+    * Node.js (Express)
+* **Database:**
+    * MongoDB
+* **Styling:**
+    * Tailwind CSS
+* **Build Tools:**
+    * Vite
+    * PostCSS
+
+### Installation Instructions
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/dish-identifier-app.git
-   cd dish-identifier-app
+   git clone https://github.com/username/Quiz-Application.git
    ```
-
 2. Install dependencies:
    ```
    npm install
    ```
-
-3. Set up environment variables:
-   - Copy the `.env.example` file to a new file named `.env`:
-     ```
-     cp .env.example .env
-     ```
-   - Open the `.env` file and replace `your_gemini_api_key_here` with your actual Google Gemini API key.
-
-4. Start the development server:
+3. Run the application:
    ```
-   npm run dev
+   npm start
    ```
 
-5. Open your browser and navigate to `http://localhost:5173` (or the URL provided in the console).
+### Usage Guidelines
 
-## Building for Production
+* Visit the application at [localhost:3000](http://localhost:3000)
+* Register as a new user or login if you already have an account
+* Select a quiz from the list of available options
+* Answer the questions as quickly and accurately as possible
+* Track your progress on the leaderboard
+* Explore other features and settings as needed
 
-To build the app for production, run:
+### Contributing Guidelines
 
-```
-npm run build
-```
+Contributions are welcome from the community. Please follow these guidelines:
 
-This will generate a `dist` folder with the production-ready files.
+* Fork the repository and create a new branch for your changes
+* Implement your features or bug fixes
+* Add detailed commit messages describing your changes
+* Submit a pull request for review and merging
 
-## Security Notes
+### License Information
 
-- Never commit your `.env` file or expose your API key in the code.
-- The `.gitignore` file is set up to exclude the `.env` file from version control.
-- Always use environment variables for sensitive information like API keys.
+This project is licensed under the MIT License.
 
-## License
+### Contact/Support
 
-[MIT License](LICENSE)
+For support or queries, please contact the project maintainers at [email protected]
