@@ -5,7 +5,7 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import { Analytics } from '@vercel/analytics/react';
-
+import LandingPage from './components/LandingPage';
 function App() {
   return (
     <Router>
@@ -13,7 +13,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
         <Analytics />
       </div>

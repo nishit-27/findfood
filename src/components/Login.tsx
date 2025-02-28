@@ -19,7 +19,7 @@ const Login = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/');
+        navigate('/dashboard');
       } else {
         setError(data.error);
       }
