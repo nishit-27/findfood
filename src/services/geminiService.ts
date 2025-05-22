@@ -79,9 +79,22 @@ export async function identifyDishAndNutrition(imageFile: File): Promise<FoodInf
   }
 }
 
+function stripMarkdown(text: string): string {
+  // Remove **bold**, __underline__, *italic*, _italic_, and backticks
+  return text.replace(/\*\*([^*]+)\*\*/g, '$1')
+             .replace(/__([^_]+)__/g, '$1')
+             .replace(/\*([^*]+)\*/g, '$1')
+             .replace(/_([^_]+)_/g, '$1')
+             .replace(/`([^`]+)`/g, '$1')
+             .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // [text](link)
+             .replace(/\*/g, '') // Remove stray *
+             .replace(/_/g, '') // Remove stray _
+             .trim();
+}
+
 function parseNutritionInfo(text: string): FoodInfo {
   const lines = text.split('\n');
-  const dish = lines[0].split(':')[1].trim();
+  const dish = stripMarkdown(lines[0].split(':')[1]?.trim() || '');
   const nutrition: NutritionInfo = {
     servingSize: '',
     calories: '',
@@ -101,46 +114,48 @@ function parseNutritionInfo(text: string): FoodInfo {
     if (line.startsWith('Benefits:')) {
       currentSection = 'benefits';
     } else if (line.startsWith('Category:')) {
-      category = line.split(':')[1].trim();
+      category = stripMarkdown(line.split(':')[1]?.trim() || '');
     } else if (line.startsWith('Avoid When:')) {
       currentSection = 'avoidWhen';
     } else if (currentSection === 'benefits' && line.trim().startsWith('-')) {
-      benefits.push(line.trim().substring(1).trim());
+      benefits.push(stripMarkdown(line.trim().substring(1).trim()));
     } else if (currentSection === 'avoidWhen' && line.trim().startsWith('-')) {
-      avoidWhen.push(line.trim().substring(1).trim());
+      avoidWhen.push(stripMarkdown(line.trim().substring(1).trim()));
     } else {
       const [key, value] = line.split(':').map(item => item.trim());
-      switch (key && key.toLowerCase()) {
+      if (!key) return;
+      switch (key.toLowerCase()) {
         case 'serving size':
-          nutrition.servingSize = value;
+          nutrition.servingSize = stripMarkdown(value || '');
           break;
         case 'calories':
           // Extract the first number from the value, ignoring units or extra text
           if (value) {
             const match = value.match(/([0-9]+(\.[0-9]+)?)/);
             nutrition.calories = match ? match[1] : '';
+            nutrition.calories = stripMarkdown(nutrition.calories);
             console.log('Parsed calories:', nutrition.calories, 'from value:', value);
           } else {
             nutrition.calories = '';
           }
           break;
         case 'protein':
-          nutrition.protein = value;
+          nutrition.protein = stripMarkdown(value || '');
           break;
         case 'carbohydrates':
-          nutrition.carbohydrates = value;
+          nutrition.carbohydrates = stripMarkdown(value || '');
           break;
         case 'fat':
-          nutrition.fat = value;
+          nutrition.fat = stripMarkdown(value || '');
           break;
         case 'fiber':
-          nutrition.fiber = value;
+          nutrition.fiber = stripMarkdown(value || '');
           break;
         case 'sugar':
-          nutrition.sugar = value;
+          nutrition.sugar = stripMarkdown(value || '');
           break;
         case 'minerals':
-          nutrition.minerals = value;
+          nutrition.minerals = stripMarkdown(value || '');
           break;
       }
     }
