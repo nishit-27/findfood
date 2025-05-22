@@ -110,12 +110,19 @@ function parseNutritionInfo(text: string): FoodInfo {
       avoidWhen.push(line.trim().substring(1).trim());
     } else {
       const [key, value] = line.split(':').map(item => item.trim());
-      switch (key.toLowerCase()) {
+      switch (key && key.toLowerCase()) {
         case 'serving size':
           nutrition.servingSize = value;
           break;
         case 'calories':
-          nutrition.calories = value;
+          // Extract the first number from the value, ignoring units or extra text
+          if (value) {
+            const match = value.match(/([0-9]+(\.[0-9]+)?)/);
+            nutrition.calories = match ? match[1] : '';
+            console.log('Parsed calories:', nutrition.calories, 'from value:', value);
+          } else {
+            nutrition.calories = '';
+          }
           break;
         case 'protein':
           nutrition.protein = value;
